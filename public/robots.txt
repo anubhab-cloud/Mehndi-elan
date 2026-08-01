@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# Disallow admin or private routes (none currently)
+Disallow: /api/
+
+Sitemap: https://mehndi-elan.com/sitemap.xml

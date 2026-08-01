@@ -1,0 +1,293 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ────────────────────────────────────────────────────────── */
+@theme {
+  /* Colours */
+  --color-cream:         #FDFBF7;
+  --color-cream-dark:    #FAF6F0;
+  --color-cream-deeper:  #F5EDE0;
+  --color-maroon:        #6B1D2A;
+  --color-maroon-dark:   #4A1020;
+  --color-maroon-card:   #3D0E15;
+  --color-maroon-light:  #8B2535;
+  --color-ivory:         #FAF6EE;
+  --color-terracotta:    #C05836;
+  --color-gold:          #C9A84C;
+  --color-gold-light:    #E8C86D;
+  --color-gold-dark:     #A67C2E;
+  --color-gold-border:   #C9A84C;
+  --color-brown:         #5C4538;
+  --color-text-dark:     #3D2B1F;
+
+  /* Typography */
+  --font-display: var(--font-serif), Georgia, "Times New Roman", serif;
+  --font-body:    var(--font-sans), system-ui, -apple-system, sans-serif;
+
+  /* Shadows */
+  --shadow-luxury:      0 4px 24px rgba(58, 20, 10, 0.08);
+  --shadow-card-hover:  0 16px 48px rgba(74, 18, 26, 0.16);
+  --shadow-gold:        0 4px 20px rgba(201, 168, 76, 0.3);
+  --shadow-gold-lg:     0 8px 40px rgba(201, 168, 76, 0.3);
+  --shadow-maroon:      0 4px 20px rgba(107, 29, 42, 0.35);
+}
+
+/* ─── Base Resets ──────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-text-dark);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  overflow-x: hidden;
+}
+
+/* ─── Layout Utilities ─────────────────────────────────────────────────────── */
+.container-luxury {
+  width: 100%;
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container-luxury {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+.section-padding {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (min-width: 640px) {
+  .section-padding {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* ─── Typography Utilities ─────────────────────────────────────────────────── */
+.section-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--color-maroon-dark);
+  line-height: 1.2;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+}
+
+.section-subtitle {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.75rem;
+}
+
+/* ─── Card Utilities ───────────────────────────────────────────────────────── */
+.luxury-card {
+  background: #FFFFFF;
+  border-radius: 1rem;
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  box-shadow: var(--shadow-luxury);
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.luxury-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+.collection-card {
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-luxury);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.collection-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(74, 18, 26, 0.2);
+}
+
+/* ─── Button System ────────────────────────────────────────────────────────── */
+.btn-primary,
+.btn-terracotta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2.25rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background-color: var(--color-maroon-dark);
+  color: var(--color-gold-light);
+  border: none;
+  box-shadow: var(--shadow-maroon);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-primary:hover,
+.btn-terracotta:hover {
+  background-color: var(--color-maroon);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(107, 29, 42, 0.45);
+}
+
+.btn-secondary,
+.btn-outline-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2.25rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background-color: transparent;
+  color: var(--color-maroon-dark);
+  border: 1.5px solid var(--color-gold);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover,
+.btn-outline-gold:hover {
+  background-color: rgba(201, 168, 76, 0.1);
+  border-color: var(--color-gold-dark);
+  color: var(--color-maroon-dark);
+  transform: translateY(-2px);
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.875rem 2.25rem;
+  border-radius: 9999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-light) 100%);
+  color: var(--color-text-dark);
+  border: none;
+  box-shadow: var(--shadow-gold);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold) 100%);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-gold-lg);
+}
+
+/* ─── Lightbox ─────────────────────────────────────────────────────────────── */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(10, 4, 6, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(6px);
+}
+
+/* ─── Ornamental Dividers ──────────────────────────────────────────────────── */
+.ornament-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+}
+
+.ornament-header::before,
+.ornament-header::after {
+  content: "";
+  height: 1px;
+  width: 120px;
+  background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+}
+
+/* ─── Animations ───────────────────────────────────────────────────────────── */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, var(--color-gold-dark) 0%, var(--color-gold-light) 40%, var(--color-gold) 60%, var(--color-gold-dark) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 4s linear infinite;
+}
+
+/* ─── Focus Styles ─────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Scrollbar (subtle) ───────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(201, 168, 76, 0.35);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 168, 76, 0.6);
+}
+
+/* ─── Print ────────────────────────────────────────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
+}
