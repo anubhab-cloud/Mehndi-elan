@@ -1,3 +1,4 @@
+// Mehndi Élan — Home Page
 import HeroSection from "@/components/home/HeroSection";
 import TrustSection from "@/components/home/TrustSection";
 import DesignCollections from "@/components/home/DesignCollections";
