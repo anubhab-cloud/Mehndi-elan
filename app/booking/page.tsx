@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   CheckCircle, Calendar, User, Phone, Mail,
-  MessageSquare, MapPin, Clock, ArrowRight
+  MessageSquare, MapPin, Clock, ArrowRight, AlertCircle
 } from "lucide-react";
 import { SITE_CONFIG } from "@/lib/constants";
 import { WhatsAppIcon } from "@/components/ui/Icons";
@@ -31,6 +31,7 @@ const PACKAGES_OPTIONS = [
 export default function BookingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const validate = (form: HTMLFormElement) => {
@@ -44,20 +45,51 @@ export default function BookingPage() {
     return errs;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const errs = validate(e.currentTarget);
+    const form = e.currentTarget;
+    const errs = validate(form);
     if (Object.keys(errs).length > 0) {
       setErrors(errs);
       return;
     }
+
     setErrors({});
+    setServerError(null);
     setIsSubmitting(true);
-    // Simulate submission
-    setTimeout(() => {
+
+    const formData = new FormData(form);
+    const payload = {
+      name: formData.get("name") as string,
+      email: formData.get("email") as string,
+      phone: formData.get("phone") as string,
+      date: formData.get("date") as string,
+      location: formData.get("location") as string,
+      service: formData.get("service") as string,
+      packageType: formData.get("package") as string,
+      message: formData.get("message") as string,
+    };
+
+    try {
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const json = await res.json();
+
+      if (!res.ok || !json.success) {
+        setServerError(json.message || "Something went wrong. Please try again.");
+      } else {
+        setSubmitted(true);
+        form.reset();
+      }
+    } catch {
+      setServerError("Network error. Please check your connection and try again.");
+    } finally {
       setIsSubmitting(false);
-      setSubmitted(true);
-    }, 1200);
+    }
   };
 
   return (
@@ -315,6 +347,14 @@ export default function BookingPage() {
                         />
                       </div>
                     </div>
+
+                    {/* Server error */}
+                    {serverError && (
+                      <div className="flex items-start gap-3 p-4 rounded-xl bg-red-50 border border-red-200">
+                        <AlertCircle className="w-4 h-4 text-red-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                        <p className="text-sm font-body text-red-600">{serverError}</p>
+                      </div>
+                    )}
 
                     <button
                       type="submit"
